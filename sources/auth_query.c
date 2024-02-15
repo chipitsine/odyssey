@@ -287,6 +287,10 @@ int od_auth_query(od_client_t *client, char *peer)
 
 error:
 	/* unlock hashmap entry */
+
+        od_router_detach(router, auth_client);
+        od_router_close(router, auth_client);
+
 	od_hashmap_unlock_key(storage->acache, keyhash, &key);
 	return NOT_OK_RESPONSE;
 }
