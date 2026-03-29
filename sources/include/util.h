@@ -8,9 +8,8 @@
 
 #include <od_memory.h>
 
-__attribute__((format(printf, 3, 0)))
-static inline int od_vsnprintf(char *buf, int size, const char *fmt,
-			       va_list args)
+__attribute__((format(printf, 3, 0))) static inline int
+od_vsnprintf(char *buf, int size, const char *fmt, va_list args)
 {
 	int rc;
 	rc = vsnprintf(buf, size, fmt, args);
@@ -20,9 +19,8 @@ static inline int od_vsnprintf(char *buf, int size, const char *fmt,
 	return rc;
 }
 
-__attribute__((format(printf, 2, 0)))
-static inline int od_vasprintf(char **__restrict bufp, const char *fmt,
-			       va_list args)
+__attribute__((format(printf, 2, 0))) static inline int
+od_vasprintf(char **__restrict bufp, const char *fmt, va_list args)
 {
 	vasprintf(bufp, fmt, args);
 
@@ -33,8 +31,8 @@ static inline int od_vasprintf(char **__restrict bufp, const char *fmt,
 	return OK_RESPONSE;
 }
 
-__attribute__((format(printf, 2, 3)))
-static inline int od_asprintf(char **__restrict bufp, const char *fmt, ...)
+__attribute__((format(printf, 2, 3))) static inline int
+od_asprintf(char **__restrict bufp, const char *fmt, ...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -51,8 +49,8 @@ static inline int od_asprintf(char **__restrict bufp, const char *fmt, ...)
 	return OK_RESPONSE;
 }
 
-__attribute__((format(printf, 3, 4)))
-static inline int od_snprintf(char *buf, int size, const char *fmt, ...)
+__attribute__((format(printf, 3, 4))) static inline int
+od_snprintf(char *buf, int size, const char *fmt, ...)
 {
 	va_list args;
 	va_start(args, fmt);
