@@ -749,8 +749,7 @@ static inline bool od_eject_conn_with_rate(od_client_t *client,
 	od_thread_global **gl = od_thread_global_get();
 	if (gl == NULL) {
 		od_log(&instance->logger, "shutdown", client, server,
-		       "drop client connection on graceful shutdown, unable to throttle (wid %d)",
-		       (*gl)->wid);
+		       "drop client connection on graceful shutdown, unable to throttle");
 		/* this is clearly something bad, TODO: handle properly */
 		return true;
 	}

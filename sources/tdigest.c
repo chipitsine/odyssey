@@ -176,7 +176,7 @@ double td_quantile_of(td_histogram_t *h, double val)
 	}
 	double k = 0;
 	int i = 0;
-	node_t *n = NULL;
+	node_t *n = &h->nodes[0];
 	for (i = 0; i < h->merged_nodes; i++) {
 		n = &h->nodes[i];
 		if (n->mean >= val) {
@@ -221,7 +221,7 @@ double td_value_at(td_histogram_t *h, double q)
 	double goal = q * h->merged_count;
 	double k = 0;
 	int i = 0;
-	node_t *n = NULL;
+	node_t *n = &h->nodes[0];
 	for (i = 0; i < h->merged_nodes; i++) {
 		n = &h->nodes[i];
 		if (k + n->count > goal) {
