@@ -54,8 +54,13 @@ static inline void test_coro_names(void *arg)
 						"abcdefghqwertyi_aa");
 	test(coro10 != -1);
 
-	test(strcmp(machine_coroutine_get_name(coro1), "") == 0);
-	test(strcmp(machine_coroutine_get_name(coro2), "") == 0);
+	const char *cname;
+	cname = machine_coroutine_get_name(coro1);
+	test(cname != NULL);
+	test(strcmp(cname, "") == 0);
+	cname = machine_coroutine_get_name(coro2);
+	test(cname != NULL);
+	test(strcmp(cname, "") == 0);
 	test(strcmp(machine_coroutine_get_name(coro3), "a") == 0);
 	test(strcmp(machine_coroutine_get_name(coro4), "ab") == 0);
 	test(strcmp(machine_coroutine_get_name(coro5), "abcdef") == 0);
