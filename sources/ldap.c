@@ -431,6 +431,13 @@ od_ldap_server_t *od_ldap_server_pull(od_logger_t *logger, od_rule_t *rule,
 		/* create new server object */
 		ldap_server = od_ldap_server_allocate();
 
+		if (ldap_server == NULL) {
+			od_error(logger, "auth_ldap", NULL, NULL,
+				 "failed to allocate ldap server object");
+			od_ldap_endpoint_unlock(le);
+			return NULL;
+		}
+
 		int ldap_rc = od_ldap_server_init(logger, ldap_server, rule);
 
 		if (ldap_rc != LDAP_SUCCESS) {
