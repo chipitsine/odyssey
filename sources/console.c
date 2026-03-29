@@ -1421,7 +1421,7 @@ static inline int od_console_show_server_prep_stmt_cb(od_server_t *server,
 
 			/*refcount */
 			data_len = od_snprintf(data, sizeof(data), "%d",
-					       prep_stmt_desc->data);
+					       *(int *)prep_stmt_desc->data);
 			rc = kiwi_be_write_data_row_add(stream, offset, data,
 							data_len);
 			if (rc == NOT_OK_RESPONSE) {
