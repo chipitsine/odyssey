@@ -1681,10 +1681,6 @@ od_config_reader_ldap_storage_credentials(od_config_reader_t *reader,
 		goto error;
 	}
 
-	od_rule_ldap_storage_credentials_add(rule, lsc_current);
-
-	od_ldap_storage_credentials_free(lsc_current);
-
 	/* { */
 	if (!od_config_reader_symbol(reader, '{')) {
 		goto error;
@@ -1712,6 +1708,9 @@ od_config_reader_ldap_storage_credentials(od_config_reader_t *reader,
 						lsc_current->name);
 					goto error;
 				}
+				od_rule_ldap_storage_credentials_add(
+					rule, lsc_current);
+				od_ldap_storage_credentials_free(lsc_current);
 				return OK_RESPONSE;
 			}
 			/* fall through */
@@ -1727,7 +1726,7 @@ od_config_reader_ldap_storage_credentials(od_config_reader_t *reader,
 		if (keyword == NULL) {
 			od_config_reader_error(reader, &token,
 					       "unknown parameter");
-			return NOT_OK_RESPONSE;
+			goto error;
 		}
 
 		switch (keyword->id) {
