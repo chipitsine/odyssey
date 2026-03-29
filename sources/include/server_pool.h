@@ -144,7 +144,7 @@ static inline od_server_t *od_server_pool_foreach(od_server_pool_t *pool,
 		break;
 	case OD_SERVER_UNDEF:
 		assert(0);
-		break;
+		return NULL;
 	}
 	od_server_t *server;
 	od_list_t *i, *n;

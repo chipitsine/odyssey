@@ -176,6 +176,8 @@ double td_quantile_of(td_histogram_t *h, double val)
 	}
 	double k = 0;
 	int i = 0;
+	/* initialised to nodes[0] (guaranteed non-NULL: merged_nodes > 0 above)
+	 * so the compiler knows n is never NULL after the loop */
 	node_t *n = &h->nodes[0];
 	for (i = 0; i < h->merged_nodes; i++) {
 		n = &h->nodes[i];
@@ -221,6 +223,8 @@ double td_value_at(td_histogram_t *h, double q)
 	double goal = q * h->merged_count;
 	double k = 0;
 	int i = 0;
+	/* initialised to nodes[0] (guaranteed non-NULL: merged_nodes > 0 above)
+	 * so the compiler knows n is never NULL after the loop */
 	node_t *n = &h->nodes[0];
 	for (i = 0; i < h->merged_nodes; i++) {
 		n = &h->nodes[i];
