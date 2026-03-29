@@ -1708,8 +1708,8 @@ od_config_reader_ldap_storage_credentials(od_config_reader_t *reader,
 						lsc_current->name);
 					goto error;
 				}
-				od_rule_ldap_storage_credentials_add(rule,
-								     lsc_current);
+				od_rule_ldap_storage_credentials_add(
+					rule, lsc_current);
 				od_ldap_storage_credentials_free(lsc_current);
 				return OK_RESPONSE;
 			}
