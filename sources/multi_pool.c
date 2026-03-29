@@ -179,6 +179,9 @@ od_multi_pool_get_or_create_locked(od_multi_pool_t *mpool,
 	if (el == NULL) {
 		od_multi_pool_element_t *new_el =
 			od_multi_pool_element_create();
+		if (new_el == NULL) {
+			return NULL;
+		}
 		if (key_copy(&new_el->key, key) != 0) {
 			od_multi_pool_element_free(new_el, mpool->pool_free_fn);
 			return NULL;
