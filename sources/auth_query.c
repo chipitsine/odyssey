@@ -152,6 +152,10 @@ int od_auth_query(od_client_t *client, char *peer)
 	/* acquire hash map entry lock */
 	value = od_hashmap_lock_key(storage->acache, keyhash, &key);
 
+	if (value == NULL) {
+		goto error;
+	}
+
 	if (value->data == NULL) {
 		/* one-time initialize */
 		value->len = sizeof(od_auth_cache_value_t);

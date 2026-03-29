@@ -2928,7 +2928,9 @@ static inline od_retcode_t od_config_reader_module(od_config_reader_t *reader,
 	}
 
 	module = od_modules_find(ext->modules, module_path);
-	assert(module != NULL);
+	if (module == NULL) {
+		goto error;
+	}
 
 	if (module->config_module_init_db == NULL) {
 		goto error;

@@ -24,6 +24,8 @@ static void mm_taskmgr_main(void *arg __attribute__((unused)))
 		msg = mm_channel_read(&machinarium.task_mgr.channel,
 				      UINT32_MAX);
 		assert(msg != NULL);
+		if (msg == NULL)
+			continue;
 		if (msg->type == MM_TASK_EXIT) {
 			mm_free(msg);
 			break;
