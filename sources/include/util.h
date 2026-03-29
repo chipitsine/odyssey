@@ -8,8 +8,8 @@
 
 #include <od_memory.h>
 
-static inline int od_vsnprintf(char *buf, int size, const char *fmt,
-			       va_list args)
+__attribute__((format(printf, 3, 0))) static inline int
+od_vsnprintf(char *buf, int size, const char *fmt, va_list args)
 {
 	int rc;
 	rc = vsnprintf(buf, size, fmt, args);
@@ -19,7 +19,8 @@ static inline int od_vsnprintf(char *buf, int size, const char *fmt,
 	return rc;
 }
 
-static inline int od_vasprintf(char **__restrict bufp, char *fmt, va_list args)
+__attribute__((format(printf, 2, 0))) static inline int
+od_vasprintf(char **__restrict bufp, const char *fmt, va_list args)
 {
 	vasprintf(bufp, fmt, args);
 
@@ -30,7 +31,8 @@ static inline int od_vasprintf(char **__restrict bufp, char *fmt, va_list args)
 	return OK_RESPONSE;
 }
 
-static inline int od_asprintf(char **__restrict bufp, char *fmt, ...)
+__attribute__((format(printf, 2, 3))) static inline int
+od_asprintf(char **__restrict bufp, const char *fmt, ...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -47,7 +49,8 @@ static inline int od_asprintf(char **__restrict bufp, char *fmt, ...)
 	return OK_RESPONSE;
 }
 
-static inline int od_snprintf(char *buf, int size, char *fmt, ...)
+__attribute__((format(printf, 3, 4))) static inline int
+od_snprintf(char *buf, int size, const char *fmt, ...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -75,7 +78,7 @@ static inline int od_concat_prefer_right(char *out, size_t max,
 		left_len = max_left;
 	}
 
-	return od_snprintf(out, max, "%.*s%s", left_len, left, right);
+	return od_snprintf(out, max, "%.*s%s", (int)left_len, left, right);
 }
 
 static inline char *od_strdup_from_buf(const char *source, size_t size)
