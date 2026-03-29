@@ -118,6 +118,7 @@ static void client(void *arg)
 		machine_msg_free(msg);
 
 		msg = machine_msg_create(0);
+		test(msg != NULL);
 		uint32_t ack = 1;
 		rc = machine_msg_write(msg, (void *)&ack, sizeof(ack));
 		test(rc == 0);

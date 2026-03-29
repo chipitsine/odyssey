@@ -15,6 +15,9 @@
 
 od_retcode_t od_thread_global_init(od_thread_global **gl)
 {
+	if (gl == NULL) {
+		return NOT_OK_RESPONSE;
+	}
 	*gl = od_malloc(sizeof(od_thread_global));
 	if (*gl == NULL) {
 		return NOT_OK_RESPONSE;
