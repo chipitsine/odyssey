@@ -95,6 +95,10 @@ build_reldbgtcmalloc:
 	mkdir -p $(BUILD_REL_DIR)
 	cd $(BUILD_REL_DIR) && $(CMAKE_BIN) .. -DCMAKE_BUILD_TYPE=RelWithDbgInfo -DUSE_TCMALLOC=ON && make -j$(CONCURRENCY)
 
+build_analyzer:
+	mkdir -p $(BUILD_TEST_DIR)
+	cd $(BUILD_TEST_DIR) && CC=gcc $(CMAKE_BIN) .. -DCMAKE_BUILD_TYPE=Analyzer $(CMAKE_FLAGS) && make -j$(CONCURRENCY)
+
 build_dbg:
 	mkdir -p $(BUILD_TEST_DIR)
 	cd $(BUILD_TEST_DIR) && $(CMAKE_BIN) .. -DCMAKE_BUILD_TYPE=Debug && make -j$(CONCURRENCY)
