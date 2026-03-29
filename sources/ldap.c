@@ -270,6 +270,9 @@ od_retcode_t od_ldap_server_prepare(od_logger_t *logger, od_ldap_server_t *serv,
 od_ldap_server_t *od_ldap_server_allocate(void)
 {
 	od_ldap_server_t *serv = od_malloc(sizeof(od_ldap_server_t));
+	if (serv == NULL) {
+		return NULL;
+	}
 	serv->conn = NULL;
 	serv->endpoint = NULL;
 

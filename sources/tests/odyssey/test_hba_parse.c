@@ -10,6 +10,7 @@ void test_od_hba_reader_prefix(sa_family_t net, char *prefix, char *value)
 	od_hba_rule_t *hba = NULL;
 	char buffer[INET6_ADDRSTRLEN];
 	hba = od_hba_rule_create();
+	test(hba != NULL);
 	hba->address_range.addr.ss_family = net;
 	test(od_address_range_read_prefix(&hba->address_range, prefix) == 0);
 	if (net == AF_INET) {
