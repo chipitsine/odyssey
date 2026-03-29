@@ -196,6 +196,9 @@ static int od_hba_reader_name(od_config_reader_t *reader,
 		case OD_PARSER_STRING: {
 			struct od_hba_rule_name_item *item =
 				od_hba_rule_name_item_add(name);
+			if (item == NULL) {
+				return -1;
+			}
 			item->value = (char *)value;
 			break;
 		}

@@ -56,6 +56,9 @@ int main(int argc, char *argv[], char *envp[])
 	init_tcmalloc_profile();
 
 	od_instance_t *odyssey = od_instance_create();
+	if (odyssey == NULL) {
+		return EXIT_FAILURE;
+	}
 	odyssey->orig_argv_ptr = argv[0];
 	odyssey->orig_argv_ptr_len = get_args_len_sum(argc, argv);
 
