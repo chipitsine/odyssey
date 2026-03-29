@@ -25,6 +25,7 @@ static void server(void *arg)
 
 	machine_tls_t *tls;
 	tls = machine_tls_create();
+	test(tls != NULL);
 	rc = machine_tls_set_verify(tls, "none");
 	test(rc == 0);
 	rc = machine_tls_set_ca_file(tls, "./machinarium/ca.crt");
@@ -80,6 +81,7 @@ static void client(void *arg)
 
 	machine_tls_t *tls;
 	tls = machine_tls_create();
+	test(tls != NULL);
 	rc = machine_tls_set_verify(tls, "none");
 	test(rc == 0);
 	rc = machine_tls_set_ca_file(tls, "./machinarium/ca.crt");

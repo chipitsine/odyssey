@@ -74,7 +74,7 @@ set(ODYSSEY_COMPILER_STRING "${ODYSSEY_COMPILER_NAME}-${ODYSSEY_COMPILER_VERSION
 
 set(OD_DEVEL_LVL -1)
 
-set(COMMON_CFLAGS "-pedantic -Wall -Wextra -Werror -Wstrict-aliasing -pthread -g")
+set(COMMON_CFLAGS "-pedantic -Wall -Wextra -Werror -Wstrict-aliasing -Wnull-dereference -pthread -g")
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
     set(CMAKE_BUILD_TYPE "Debug")
@@ -95,6 +95,12 @@ elseif("${CMAKE_BUILD_TYPE}" STREQUAL "ASAN")
 elseif("${CMAKE_BUILD_TYPE}" STREQUAL "TSAN")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_CFLAGS} -fsanitize=thread -fno-sanitize-recover=all -fno-omit-frame-pointer -O0")
     set(HAVE_TSAN 1)
+elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Analyzer")
+    if(NOT "${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+        message(FATAL_ERROR "Analyzer build type requires GCC (CMAKE_C_COMPILER_ID=${CMAKE_C_COMPILER_ID})")
+    endif()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_CFLAGS} -fanalyzer -Wno-analyzer-malloc-leak -O1")
+    set(OD_DEVEL_LVL 1)
 else()
     message(FATAL_ERROR "Unknown build type ${CMAKE_BUILD_TYPE}")
 endif()

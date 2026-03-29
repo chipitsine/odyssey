@@ -81,6 +81,8 @@ od_worker_pool_wait_gracefully_shutdown(od_worker_pool_t *pool)
 	}
 
 	od_free(pool->pool);
+	pool->pool = NULL;
+	pool->count = 0;
 }
 
 static inline void od_worker_pool_feed(od_worker_pool_t *pool,

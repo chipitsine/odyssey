@@ -8,6 +8,7 @@ void machinarium_test_ring_buffer(void)
 	uint8_t buff[256];
 
 	machine_ring_buffer_t *rbuf = machine_ring_buffer_create(10);
+	test(rbuf != NULL);
 
 	test(machine_ring_buffer_capacity(rbuf) == 10);
 	test(machine_ring_buffer_size(rbuf) == 0);

@@ -336,6 +336,11 @@ void od_rules_group_checker_run(void *arg)
 						msg, &group_member);
 					member = od_group_member_name_item_add(
 						&members);
+					if (member == NULL) {
+						rc = NOT_OK_RESPONSE;
+						response_is_read = 1;
+						break;
+					}
 					member->value = group_member;
 					break;
 
@@ -491,6 +496,9 @@ od_retcode_t od_rules_groups_checkers_run(od_logger_t *logger,
 		if (rule->group && !rule->obsolete && !rule->group->online) {
 			od_group_checker_run_args *args =
 				od_malloc(sizeof(od_group_checker_run_args));
+			if (args == NULL) {
+				return NOT_OK_RESPONSE;
+			}
 			args->rule = rule;
 			args->done_flag = rules->destroy_flag;
 
@@ -1506,6 +1514,9 @@ int od_rules_merge(od_rules_t *rules, od_rules_t *src, od_list_t *added,
 
 		if (!ok) {
 			od_rule_key_t *rk = od_malloc(sizeof(od_rule_key_t));
+			if (rk == NULL) {
+				return NOT_OK_RESPONSE;
+			}
 
 			od_rule_key_init(rk);
 
@@ -1548,6 +1559,9 @@ int od_rules_merge(od_rules_t *rules, od_rules_t *src, od_list_t *added,
 
 		if (!ok) {
 			od_rule_key_t *rk = od_malloc(sizeof(od_rule_key_t));
+			if (rk == NULL) {
+				return NOT_OK_RESPONSE;
+			}
 
 			od_rule_key_init(rk);
 
@@ -1590,6 +1604,9 @@ int od_rules_merge(od_rules_t *rules, od_rules_t *src, od_list_t *added,
 								  rule)) {
 				od_rule_key_t *rk =
 					od_malloc(sizeof(od_rule_key_t));
+				if (rk == NULL) {
+					return NOT_OK_RESPONSE;
+				}
 
 				od_rule_key_init(rk);
 

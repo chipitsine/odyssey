@@ -270,6 +270,9 @@ od_retcode_t od_ldap_server_prepare(od_logger_t *logger, od_ldap_server_t *serv,
 od_ldap_server_t *od_ldap_server_allocate(void)
 {
 	od_ldap_server_t *serv = od_malloc(sizeof(od_ldap_server_t));
+	if (serv == NULL) {
+		return NULL;
+	}
 	serv->conn = NULL;
 	serv->endpoint = NULL;
 
@@ -427,6 +430,13 @@ od_ldap_server_t *od_ldap_server_pull(od_logger_t *logger, od_rule_t *rule,
 	if (ldap_server == NULL) {
 		/* create new server object */
 		ldap_server = od_ldap_server_allocate();
+
+		if (ldap_server == NULL) {
+			od_error(logger, "auth_ldap", NULL, NULL,
+				 "failed to allocate ldap server object");
+			od_ldap_endpoint_unlock(le);
+			return NULL;
+		}
 
 		int ldap_rc = od_ldap_server_init(logger, ldap_server, rule);
 

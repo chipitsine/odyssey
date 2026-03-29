@@ -199,7 +199,7 @@ static inline int od_auth_frontend_cleartext(od_client_t *client)
 		/* auth callback */
 		od_module_t *module;
 		module = od_modules_find(modules, client->rule->auth_module);
-		if (module->od_auth_cleartext_cb == NULL) {
+		if (module == NULL || module->od_auth_cleartext_cb == NULL) {
 			kiwi_password_free(&client_token);
 			machine_msg_free(msg);
 			goto auth_failed;
